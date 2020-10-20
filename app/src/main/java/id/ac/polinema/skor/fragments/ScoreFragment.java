@@ -50,11 +50,13 @@ public class ScoreFragment extends Fragment {
 		binding.setHomeGoalScorerList(homeGoalScorerList);
 		binding.setAwayGoalScorerList(awayGoalScorerList);
 
+
 		getParentFragmentManager().setFragmentResultListener(HOME_REQUEST_KEY, this, new FragmentResultListener() {
 			@Override
 			public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
 				GoalScorer goalScorer = result.getParcelable(SCORER_KEY);
 				homeGoalScorerList.add(goalScorer);
+				binding.textAwayScorer.setText(getScorer(awayGoalScorerList, AWAY_REQUEST_KEY));
 				binding.textHomeScorer.setText(getScorer(homeGoalScorerList, HOME_REQUEST_KEY));
 			}
 		});
@@ -65,9 +67,9 @@ public class ScoreFragment extends Fragment {
 				GoalScorer goalScorer = result.getParcelable(SCORER_KEY);
 				awayGoalScorerList.add(goalScorer);
 				binding.textAwayScorer.setText(getScorer(awayGoalScorerList, AWAY_REQUEST_KEY));
+				binding.textHomeScorer.setText(getScorer(homeGoalScorerList, HOME_REQUEST_KEY));
 			}
 		});
-
 		binding.setFragment(this);
 		return binding.getRoot();
 	}
